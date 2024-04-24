@@ -29,37 +29,6 @@ extern crate rocket;
 
 struct DbConn(diesel::SqliteConnection);
 
-// pub trait SqliteConnectionExt {
-//     fn find_user(&mut self, email: &str, password: &str) -> QueryResult<User>;
-// }
-
-// impl SqliteConnectionExt for SqliteConnection {
-//     fn find_user(&mut self, email: &str, password: &str) -> QueryResult<User> {
-//         users::table
-//             .filter(users::email.eq(email))
-//             .filter(users::password.eq(password))
-//             .first(self)
-//     }
-// }
-//
-// #[get("/test")]
-// async fn find_user_route(auth: BasicAuth) -> Result<Value, Custom<Value>> {
-//     let database_url = "sqlite://./database.sqlite";
-//     let mut connection =
-//         SqliteConnection::establish(&database_url).expect("Failed to establish connection");
-
-//     match connection.find_user(&auth.email, &auth.password) {
-//         Ok(_user) => match UserController::find_many(&mut connection) {
-//             Ok(users) => Ok(json!(users)),
-//             Err(e) => Err(Custom(Status::InternalServerError, json!(e.to_string()))),
-//         },
-//         Err(e) => match e {
-//             NotFound => Err(Custom(Status::NotFound, json!(e.to_string()))),
-//             _ => Err(Custom(Status::InternalServerError, json!(e.to_string()))),
-//         },
-//     }
-// }
-
 //USERS
 
 #[get("/users")]
@@ -110,6 +79,7 @@ async fn delete_user(db: DbConn, id: i32) -> Result<Value, Custom<Value>> {
 }
 
 //LINKS
+//Not working rn, need to rework on auth 
 
 #[get("/links")]
 async fn all(auth: BasicAuth, db: DbConn) -> Result<Value, Custom<Value>> {
