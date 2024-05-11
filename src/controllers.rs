@@ -100,6 +100,7 @@ impl UserController {
             .first(c)
     }
     pub fn find_user(c: &mut SqliteConnection, email: &String, password: &String) {
+        println!("here");
         let user_result = users::table
             .filter(users::email.eq(email.to_owned()))
             .filter(users::password.eq(password.to_owned()))
